@@ -1,11 +1,3 @@
 dataset	fileName	URL	synapseID	gsURI
-dream/raw	synthetic.challenge.set1.normal.v2.bam	https://storage.googleapis.com/public-dream-data/synthetic.challenge.set1.normal.v2.bam	null	gs://public-dream-data/synthetic.challenge.set1.normal.v2.bam
-dream/raw	synthetic.challenge.set1.normal.v2.bam.bai	https://storage.googleapis.com/public-dream-data/synthetic.challenge.set1.normal.v2.bam.bai	null	null
-dream/raw	synthetic.challenge.set1.tumor.v2.bam.bai	https://storage.googleapis.com/public-dream-data/synthetic.challenge.set1.tumor.v2.bam.bai	null	gs://public-dream-data/synthetic.challenge.set1.tumor.v2.bam.bai
-dream/raw	synthetic.challenge.set2.normal.bam.bai	https://storage.googleapis.com/public-dream-data/synthetic.challenge.set2.normal.bam.bai	null	gs://public-dream-data/synthetic.challenge.set2.normal.bam.bai
-dream/raw	synthetic.challenge.set2.tumor.bam.bai	https://storage.googleapis.com/public-dream-data/synthetic.challenge.set2.tumor.bam.bai	null	gs://public-dream-data/synthetic.challenge.set2.tumor.bam.bai
-dream/raw	synthetic.challenge.set3.normal.bam.bai	https://storage.googleapis.com/public-dream-data/synthetic.challenge.set3.normal.bam.bai	null	gs://public-dream-data/synthetic.challenge.set3.normal.bam.bai
-dream/raw	synthetic.challenge.set3.tumor.bam.bai	https://storage.googleapis.com/public-dream-data/synthetic.challenge.set3.tumor.bam.bai	null	gs://public-dream-data/synthetic.challenge.set3.tumor.bam.bai
 dream/truth	synthetic.challenge.set1.tumor.all.truth.vcf.gz	null	syn2354306	null
 dream/truth	synthetic.challenge.set2.tumor.all.truth.vcf.gz	null	syn2399959	null
-dream/truth	synthetic.challenge.set3.tumor.20pctmasked.truth.vcf.gz	null	syn2485207	null

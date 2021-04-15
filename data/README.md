@@ -2,6 +2,11 @@
 
 Put here all the list of project, samples, URLs, etc, that will be used by the [scripts](../scripts) to download, extract and format the golden datasets.
 
+## COLO829 SV sample truth file
+Publication: https://www.biorxiv.org/content/10.1101/2020.10.15.340497v1.full
+The truth file corresponds to the Supplemental Table 3 https://www.biorxiv.org/content/biorxiv/early/2020/10/16/2020.10.15.340497/DC4/embed/media-4.xlsx?download=true
+A tsv version of the file can be found at the OwnCloud.
+
 ## DREAM synthetic set
 
 

@@ -18,7 +18,6 @@ make COMMAND -j NCPUS [VARS]
 | Command | Description |
 | --- | --- |
 |`download`| Download datasets in `data/datasets.tsv` |
-|`test`| Download test data in `data/datasets.test.tsv` |
 |`bam2fastq`| Convert downloaded `bam` files into `fastq` files |
 |`compress`| Compress downloaded `fastq` files with `pigz` |
 |`clean`| Remove downloaded data |

@@ -1,5 +1,6 @@
 #New file to check SV metrics for DREAM datasets results
 
+
 #Set your own directory
 setwd('~/Descargas/SVinsilicos')
 
@@ -280,6 +281,9 @@ metrics_calculator_tab <- function(insilico_sv_tab, truth_insilico_sv_tab, SV_ty
 
 
 
+#Set your own directory
+setwd('~/Downloads')
+
 
 truth_insilico_1_sv_tab <-"./truth.SV.synthetic.challenge.set1.vcf"
 insilico_1_sv_tab_hmf <- "./insilico_1_sv_hmf.vcf"
@@ -388,6 +392,163 @@ insilico_3_result_sv_hmf
 
 
 
+
+# truth_tab <- truth_insilico_sv_tab
+# truth_tab_formated <- read.table(truth_tab)
+# colnames(truth_tab_formated) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN")
+# truth_tab_formated <- truth_tab_formated[!grepl("MSK", truth_tab_formated$ALT),]
+# 
+
+truth.3.del.vcf <- read.table("./truth.3.del.vcf")
+colnames(truth.3.del.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN")
+
+truth.3.dup.vcf <- read.table("./truth.3.dup.vcf")
+colnames(truth.3.dup.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN")
+
+truth.3.ins.vcf <- read.table("./truth.3.ins.vcf")
+colnames(truth.3.ins.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN")
+
+
+curie_del.vcf <- read.table("./curie_del.vcf",sep = "\t",)
+colnames(curie_del.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN", "ww")
+
+curie_dup.vcf <- read.table("./curie_dup.vcf",sep = "\t",)
+colnames(curie_dup.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN", "ww")
+
+curie_ins.vcf <- read.table("./curie_ins.vcf",sep = "\t",)
+colnames(curie_ins.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN", "ww")
+
+
+
+
+
+((curie_del.vcf[1,1] == truth.3.del.vcf[1,1] ) & ((curie_del.vcf[1,2] >= truth.3.del.vcf[1,2]-100) &   (curie_del.vcf[1,2] <= truth.3.del.vcf[1,2]+100))  )
+truth.3.del.vcf[1,2]-100
+curie_del.vcf[1,2]
+
+#DELETIONS
+for (variant in 1:563){
+  for (true_variant in 1:705){
+    if ((curie_del.vcf[variant,1] == truth.3.del.vcf[true_variant,1]) & (  (curie_del.vcf[variant,2] >= truth.3.del.vcf[true_variant,2]-100) &   (curie_del.vcf[variant,2] <= truth.3.del.vcf[true_variant,2]+100))  ){
+      curie_del.vcf[variant,11] <- "TP"
+      truth.3.del.vcf[true_variant,10] <- "Founded"
+      break
+    }
+    else {
+      curie_del.vcf[variant,11] <- "FP"
+    }
+  }
+}
+
+#INSERTIONS
+for (variant in 1:107){
+  for (true_variant in 1:688){
+    if ((curie_ins.vcf[variant,1] == truth.3.ins.vcf[true_variant,1]) & (  (curie_ins.vcf[variant,2] >= truth.3.ins.vcf[true_variant,2]-100) &   (curie_ins.vcf[variant,2] <= truth.3.ins.vcf[true_variant,2]+100))  ){
+      curie_ins.vcf[variant,11] <- "TP"
+      truth.3.ins.vcf[true_variant,10] <- "Founded"
+      break
+    }
+    else {
+      curie_ins.vcf[variant,11] <- "FP"
+    }
+  }
+}
+#DUPLICATIONS
+for (variant in 1:635){
+  for (true_variant in 1:746){
+    if ((curie_dup.vcf[variant,1] == truth.3.dup.vcf[true_variant,1]) & (  (curie_dup.vcf[variant,2] >= truth.3.dup.vcf[true_variant,2]-100) &   (curie_dup.vcf[variant,2] <= truth.3.dup.vcf[true_variant,2]+100))  ){
+      curie_dup.vcf[variant,11] <- "TP"
+      truth.3.dup.vcf[true_variant,10] <- "Founded"
+      break
+    }
+    else {
+      curie_dup.vcf[variant,11] <- "FP"
+    }
+  }
+}
+
+#Calcular métricas con lo de arriba easy y poner en el documento
+table(curie_del.vcf[,11])
+table(truth.3.del.vcf[,10])
+# FP  TP 
+# 44 519 
+# ./. Founded 
+# 186     519 
+
+# Recall = 519 / (106 + 519) = 0.8304
+# Precision = 519 / (44 + 519) = 0.9218472
+# F-Score = 2 * Precision * Recall / (Precision + Recall) = 2 * 0.8304 * 0.9218472 / ( 0.8304 + 0.9218472 ) = 0.8737374
+table(curie_dup.vcf[,11])
+table(truth.3.dup.vcf[,10])
+# FP  TP 
+# 21 614 
+# ./. Founded 
+# 132     614 
+
+# Recall = 614 / (132 + 614) = 0.8230563
+# Precision = 614 / (21 + 614) = 0.9669291
+# F-Score = 2 * 0.8230563 * 0.9669291 / ( 0.8230563 + 0.9669291 ) = 0.8892107
+table(curie_ins.vcf[,11])
+table(truth.3.ins.vcf[,10])
+# FP TP 
+# 31 76 
+# ./. Founded 
+# 613      75 
+
+# Recall = 75 / (613 + 75) = 0.1090116
+# Precision = 75 / (31 + 75) = 0.7075472
+# F-Score = 2 * 0.1090116 * 0.7075472 / ( 0.1090116 + 0.7075472 ) = 0.1889168
+
+
+
+
+
+
+truth.3.inv.vcf <- read.table("./truth.3.inv.vcf")
+colnames(truth.3.inv.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN")
+
+curie_inv.vcf <- read.table("./curie_bnd.vcf",sep = "\t",)
+colnames(curie_inv.vcf) <- c("#CHROM",  "POS" ,    "ID"  ,    "REF" ,    "ALT"  ,   "QUAL" ,   "FILTER" , "INFO" ,   "FORMAT",  "SPIKEIN", "ww")
+
+
+inv_a <-curie_inv.vcf[grepl("*]$",curie_inv.vcf$ALT),]
+inv_a$SV_TYPE <- "INV"
+inv_b <- curie_inv.vcf[grepl("^\\Q[\\E",curie_inv.vcf$ALT),]
+inv_b$SV_TYPE <- "INV"
+
+curie_inv.vcf <- rbind(inv_a, inv_b)
+#Creo que no es necesario juntarlos, asique divido entre 2 los FP y los TP
+
+
+
+#INVERSIONS
+for (variant in 1:3366){
+  for (true_variant in 1:747){
+    if ((curie_inv.vcf[variant,1] == truth.3.inv.vcf[true_variant,1]) & (  (curie_inv.vcf[variant,2] >= truth.3.inv.vcf[true_variant,2]-100) &   (curie_inv.vcf[variant,2] <= truth.3.inv.vcf[true_variant,2]+100))  ){
+      curie_inv.vcf[variant,11] <- "TP"
+      truth.3.inv.vcf[true_variant,10] <- "Founded"
+      break
+    }
+    else {
+      curie_inv.vcf[variant,11] <- "FP"
+    }
+  }
+}
+
+#Calcular métricas con lo de arriba easy y poner en el documento
+table(curie_inv.vcf[,11])
+table(truth.3.inv.vcf[,10])
+
+# FP   TP 
+# 2212 1154 
+# 1106 577
+# 1106 594
+# ./. Founded 
+# 153     594 
+
+# Recall = 594 / (153 + 594) = 0.7951807
+# Precision = 594 / (1106 + 594) = 0.3494118
+# F-Score = 2 * Precision * Recall / (Precision + Recall) = 2 * 0.7951807 * 0.3494118 / ( 0.7951807 + 0.3494118 ) = 0.4854925
 
 
 

@@ -118,7 +118,7 @@ $(DATASETS_FROM_URL_FILES): %: | %.url
 # Download file from synapse if there is a synapse ID in the tsv file
 $(DATASETS_FROM_SYNID_FILES): %: | %.synid $(SYNAPSE_SESSION)
 	@$(CONDA_ACTIVATE) $(CONDA_ENV)
-	syn_file=$$(synapse get --downloadLocation $(@D) $(shell cat $(word 1, $|)) | awk 'BEGIN {FS=" "} /Downloaded file/ {print $$3}') && \
+	syn_file=$$(synapse get --downloadLocation $(@D) $(shell cat $(word 1, $|))  | tee /dev/tty | awk 'BEGIN {FS=" "} /Downloaded file/ {print $$3}') && \
 	mv $(@D)/$${syn_file} $@
 
 $(DATASETS_FROM_GSUTIL_FILES): %: | %.gsutil $(CONDA_ENV)

@@ -5,10 +5,10 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - gatk4=4.1.2.0=1
-  - pigz=2.4=h84994c4_0
-  - pip=20.0.2=py38_1
-  - synapseclient=2.0.0=py_0
-  - which=2.21=h516909a_0
+  - gatk4=4.1.2.0
+  - pigz=2.4
+  - pip=20.0.2
+  - synapseclient=2.2.0
+  - which=2.21
   - pip:
       - gsutil==4.49
